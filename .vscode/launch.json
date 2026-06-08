@@ -1,0 +1,34 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug NestJS (start:debug)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start:debug"],
+      "autoAttachChildProcesses": true,
+      "restart": true,
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug e2e Tests",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "test:e2e"],
+      "autoAttachChildProcesses": true,
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach to Port 9229",
+      "port": 9229,
+      "restart": true,
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

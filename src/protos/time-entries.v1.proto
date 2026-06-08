@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package timeentries.v1;
+
+service TimeEntriesService {
+  rpc StartTimer (StartTimerRequest) returns (TimeEntry);
+  rpc StopTimer (StopTimerRequest) returns (TimeEntry);
+  rpc GetRunning (GetRunningRequest) returns (RunningTimer);
+  rpc CreateManual (CreateTimeEntryRequest) returns (TimeEntry);
+  rpc FindByUser (FindByUserRequest) returns (TimeEntryList);
+  rpc Remove (RemoveRequest) returns (RemoveResponse);
+  rpc Report (ReportRequest) returns (ReportResponse);
+}
+
+message TimeEntry {
+  string id = 1;
+  string userId = 2;
+  optional string projectId = 3;
+  optional string description = 4;
+  string startTime = 5;
+  optional string endTime = 6;
+  optional int32 durationSeconds = 7;
+  string createdAt = 8;
+  string updatedAt = 9;
+}
+
+message StartTimerRequest {
+  string userId = 1;
+  optional string projectId = 2;
+  optional string description = 3;
+}
+
+message StopTimerRequest {
+  string userId = 1;
+}
+
+message GetRunningRequest {
+  string userId = 1;
+}
+
+message RunningTimer {
+  bool running = 1;
+  optional TimeEntry entry = 2;
+}
+
+message CreateTimeEntryRequest {
+  string userId = 1;
+  optional string projectId = 2;
+  optional string description = 3;
+  string startTime = 4;
+  string endTime = 5;
+}
+
+message FindByUserRequest {
+  string userId = 1;
+}
+
+message TimeEntryList {
+  repeated TimeEntry items = 1;
+}
+
+message RemoveRequest {
+  string id = 1;
+}
+
+message RemoveResponse {
+  bool success = 1;
+}
+
+message ReportRequest {
+  string userId = 1;
+  optional string projectId = 2;
+  optional string from = 3;
+  optional string to = 4;
+}
+
+message ReportRow {
+  optional string projectId = 1;
+  int32 totalSeconds = 2;
+  double totalHours = 3;
+  int32 entryCount = 4;
+}
+
+message ReportResponse {
+  repeated ReportRow rows = 1;
+}
